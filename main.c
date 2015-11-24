@@ -6,3 +6,9 @@ int main(void)
     return 0;
 }
 
+void lerArquivo() {
+    FILE *file;
+    int n,
+
+}
+
