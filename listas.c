@@ -52,12 +52,12 @@ void lista_arestas_remover(listaArestas *l_arestas, no_aresta *elemento)
         atual = atual->prox;
     }
 
-    if (atual = l_arestas->fim = l_arestas->inicio) {
+    if (atual == l_arestas->fim && atual == l_arestas->inicio) {
         l_arestas->inicio = NULL;
         l_arestas->fim = NULL;
-    } else if (atual = l_arestas->inicio) {
+    } else if (atual == l_arestas->inicio) {
         l_arestas->inicio = l_arestas->inicio->prox;
-    } else if (atual = l_arestas->fim) {
+    } else if (atual == l_arestas->fim) {
         l_arestas->fim = anterior;
         anterior->prox = NULL;
     } else {
@@ -68,19 +68,15 @@ void lista_arestas_remover(listaArestas *l_arestas, no_aresta *elemento)
     free(elemento);
 }
 
-/*void imprimir_lista(lista *l) {
-    no *n;
+void lista_arestas_imprimir(listaArestas *l) {
+    no_aresta *n;
     n = l->inicio;
 
-    //fl_clear_browser(fdui->dados_programas);
-
     while(n != NULL) {
-        fl_add_browser_line_f(fdui->dados_programas, "%i", n->info->prioridade);
+        printf("\nA%i %i<->%i C%i", n->info->aresta, n->info->vertice1, n->info->vertice2, n->info->custo);
         n = n->prox;
     }
-
-    //free(n);
-}*/
+}
 
 // ======================================== VERTICE =======================================
 
@@ -134,12 +130,12 @@ void lista_vertices_remover(listaVerticesOrigem *l_vertices, no_vertices *elemen
         atual = atual->prox;
     }
 
-    if (atual = l_vertices->fim = l_vertices->inicio) {
+    if (atual == l_vertices->fim && atual == l_vertices->inicio) {
         l_vertices->inicio = NULL;
         l_vertices->fim = NULL;
-    } else if (atual = l_vertices->inicio) {
+    } else if (atual == l_vertices->inicio) {
         l_vertices->inicio = l_vertices->inicio->prox;
-    } else if (atual = l_vertices->fim) {
+    } else if (atual == l_vertices->fim) {
         l_vertices->fim = anterior;
         anterior->prox = NULL;
     } else {
@@ -150,5 +146,17 @@ void lista_vertices_remover(listaVerticesOrigem *l_vertices, no_vertices *elemen
     free(elemento);
 }
 
+void lista_vertices_imprimir(listaVerticesOrigem *l) {
+    no_vertices *n;
+    n = l->inicio;
+
+    while(n != NULL) {
+        printf("\nV%i", n->info->vertice0);
+        lista_arestas_imprimir(n->l_arestas);
+        fflush(stdout);
+        n = n->prox;
+    }
+
+}
 
 

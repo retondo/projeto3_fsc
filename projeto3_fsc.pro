@@ -8,8 +8,4 @@ SOURCES += main.c \
 
 HEADERS += \
     dadosLista.h \
-    listaVerticesOrigem.h \
     listas.h
-
-DISTFILES +=
-
