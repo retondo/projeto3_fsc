@@ -4,7 +4,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.c \
-lista.c
+    listas.c
 
-HEADERS += lista.h
+HEADERS += \
+    dadosLista.h \
+    listaVerticesOrigem.h \
+    listas.h
+
+DISTFILES +=
 
