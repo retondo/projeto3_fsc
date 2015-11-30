@@ -21,6 +21,40 @@ int main(void)
     return 0;
 }
 
+void arvoreMinima() {
+    listaArestas *arvore_minima = (listaArestas *) malloc(sizeof(listaArestas));
+    // Lista auxiliar de todas as arestas
+    listaArestas *aux = (listaArestas *) malloc(sizeof(listaArestas));
+    listaArestas *copia = (listaArestas *) malloc(sizeof(listaArestas));
+    lista_arestas_iniciar(aux);
+    lista_arestas_iniciar(arvore_minima);
+    copia = l_arestas;
+    no_vertices *nv = l_vertices->inicio;
+    no_aresta *na;
+    int verticesUsados[l_arestas->tam*2], i = 0;
+
+    while (nv->prox != NULL) {
+        while (!lista_arestas_vazia(l_arestas)) {
+            // Parte a busca da árvore pelo vértice de origem
+            na = copia->inicio;
+            while (na->prox != NULL) {
+                if (na->info->vertice1 == nv->info->vertice0 || na->info->vertice2 == nv->info->vertice0) {
+                    if (lista_arestas_vazia(aux))
+                        lista_arestas_inserir(aux, na->info);
+                    else if (na->info->custo < aux->inicio->info->custo) {
+                        lista_arestas_remover(aux, aux->inicio);
+                        lista_arestas_remover(copia, aux->inicio);
+                        lista_arestas_inserir(aux, na->info);
+                    }
+                    verticesUsados[i] = nv->info->vertice0;
+                }
+                na = na->prox;
+            }
+        }
+        nv = nv->prox;
+    }
+}
+
 void lerArquivo(char *caminho) {
     FILE *file;
     int numeroArestas;
@@ -62,3 +96,15 @@ void lerArquivo(char *caminho) {
         fclose(file);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

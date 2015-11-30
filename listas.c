@@ -19,7 +19,7 @@ int lista_arestas_iniciar(listaArestas *l_arestas)
         l_arestas->tam = 0;
         return 1;
     } else {
-        printf("A lista não existe!!");
+        printf("\nA lista não existe!!");
         return 0;
     }
 }
@@ -44,28 +44,32 @@ void lista_arestas_inserir(listaArestas *l_arestas, dadosArestas *elemento)
 
 void lista_arestas_remover(listaArestas *l_arestas, no_aresta *elemento)
 {
-    no_aresta *atual = l_arestas->inicio;
-    no_aresta *anterior = NULL;
-
-    while (atual != elemento) {
-        anterior = atual;
-        atual = atual->prox;
-    }
-
-    if (atual == l_arestas->fim && atual == l_arestas->inicio) {
-        l_arestas->inicio = NULL;
-        l_arestas->fim = NULL;
-    } else if (atual == l_arestas->inicio) {
-        l_arestas->inicio = l_arestas->inicio->prox;
-    } else if (atual == l_arestas->fim) {
-        l_arestas->fim = anterior;
-        anterior->prox = NULL;
+    if (lista_arestas_vazia(l_arestas)) {
+        printf("Nada a remover. Lista vazia!!");
     } else {
-        anterior->prox = atual->prox;
-    }
-    l_arestas->tam--;
+        no_aresta *atual = l_arestas->inicio;
+        no_aresta *anterior = NULL;
 
-    free(elemento);
+        while (atual != elemento) {
+            anterior = atual;
+            atual = atual->prox;
+        }
+
+        if (atual == l_arestas->fim && atual == l_arestas->inicio) {
+            l_arestas->inicio = NULL;
+            l_arestas->fim = NULL;
+        } else if (atual == l_arestas->inicio) {
+            l_arestas->inicio = l_arestas->inicio->prox;
+        } else if (atual == l_arestas->fim) {
+            l_arestas->fim = anterior;
+            anterior->prox = NULL;
+        } else {
+            anterior->prox = atual->prox;
+        }
+        l_arestas->tam--;
+
+        free(elemento);
+    }
 }
 
 void lista_arestas_imprimir(listaArestas *l) {
