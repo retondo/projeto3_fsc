@@ -38,8 +38,8 @@ void lista_arestas_inserir(listaArestas *l_arestas, dadosArestas *elemento)
     } else {
         l_arestas->fim->prox = novo;
         l_arestas->fim = novo;
-        novo->prox = NULL;
     }
+    novo->prox = NULL;
     l_arestas->tam++;
 }
 
@@ -51,7 +51,7 @@ void lista_arestas_remover(listaArestas *l_arestas, no_aresta *elemento)
         no_aresta *atual = l_arestas->inicio;
         no_aresta *anterior = NULL;
 
-        while (atual != elemento) {
+        while (atual->info != elemento->info) {
             anterior = atual;
             atual = atual->prox;
         }
@@ -69,7 +69,7 @@ void lista_arestas_remover(listaArestas *l_arestas, no_aresta *elemento)
         }
         l_arestas->tam--;
 
-        free(elemento);
+        free(atual);
     }
 }
 
@@ -122,6 +122,7 @@ void lista_vertices_inserir(listaVerticesOrigem *l_vertices, dadosVerticesOrigem
         l_vertices->fim->prox = novo;
         l_vertices->fim = novo;
     }
+    novo->prox = NULL;
     l_vertices->tam++;
 }
 

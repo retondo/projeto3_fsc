@@ -8,7 +8,8 @@ void arvoreMinima() {
     lista_arestas_iniciar(aux);
     lista_arestas_iniciar(copia);
     int verticesUsados[100] = {0};
-    int i = 0, numeroVertices = 0;
+    int i, numeroVertices = 0;
+    int vertOrigem = l_vertices->inicio->info->vertice0;
 
     no_aresta *na;
     no_vertices *nv = l_vertices->inicio;
@@ -17,15 +18,24 @@ void arvoreMinima() {
         arvore_minima = (listaArestas *) malloc(sizeof(listaArestas));
         lista_arestas_iniciar(arvore_minima);
         copiarLista(l_arestas, copia);
+        i = 0;
+        vertOrigem = nv->info->vertice0;
+        while (verticesUsados[i] != 0) {
+            verticesUsados[i] = 0;
+            i++;
+        }
+        i = 0;
+        verticesUsados[i] = vertOrigem;
         while (!lista_arestas_vazia(copia)) {
             // Inicia a busca da árvore pelo vértice de origem
             na = copia->inicio;
-            while (na->prox != NULL) {
+            while (na != NULL) {
                 // Verifica se os vértices da aresta é igual ao vértice de origem
-                if (na->info->vertice1 == nv->info->vertice0 || na->info->vertice2 == nv->info->vertice0) {
+                if (na->info->vertice1 == vertOrigem || na->info->vertice2 == vertOrigem) {
                     // Verifica se não há repetição de vértices
                     if (vertices_usados(verticesUsados, na->info->vertice1, na->info->vertice2)) {
                         lista_arestas_remover(copia, na);
+                        na = na->prox;
                         continue;
                     } else {
                         // Se a lista auxiliar estiver vazia, insere o nó
@@ -39,21 +49,33 @@ void arvoreMinima() {
                         } //fim else
                     } // fim else
                 } // fim if
+
                 na = na->prox;
+
             } // fim while
-            // Atualiza o vértice de origem
-            if (na->info->vertice1 == nv->info->vertice0)
-                nv->info->vertice0 = na->info->vertice2;
-            else if (na->info->vertice2 == nv->info->vertice0)
-                nv->info->vertice0 = na->info->vertice1;
-            lista_arestas_inserir(arvore_minima, na->info);
-            lista_arestas_remover(copia, na);
-            verticesUsados[i] = nv->info->vertice0;
-            i++;
+
+            if (aux->inicio != NULL) {
+                // Atualiza o vértice de origem
+                if (aux->inicio->info->vertice1 == vertOrigem)
+                    vertOrigem = aux->inicio->info->vertice2;
+                else if (aux->inicio->info->vertice2 == vertOrigem)
+                    vertOrigem = aux->inicio->info->vertice1;
+                verticesUsados[++i] = vertOrigem;
+                lista_arestas_inserir(arvore_minima, aux->inicio->info);
+                lista_arestas_remover(copia, aux->inicio);
+                lista_arestas_remover(aux, aux->inicio);
+            } else {
+                while (copia->tam != 0)
+                    lista_arestas_remover(copia, copia->inicio);
+                break;
+            }
+
         } // fim while
         numeroVertices++;
-        nv->l_arestas = arvore_minima;
-        lista_vertices_imprimir(nv);
+        no_vertices *resultado = (no_vertices *) malloc(sizeof(no_vertices));
+        resultado->l_arestas = arvore_minima;
+        resultado->info->vertice0 = nv->info->vertice0;
+        lista_vertices_imprimir(resultado);
         nv = nv->prox;
     } // fim while
 
