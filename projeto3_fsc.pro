@@ -4,8 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.c \
-    listas.c
+    listas.c \
+    calcularCaminho.c
 
 HEADERS += \
     dadosLista.h \
-    listas.h
+    listas.h \
+    calcularCaminho.h

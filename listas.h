@@ -41,7 +41,7 @@ int lista_vertices_iniciar(listaVerticesOrigem *l_vertices);
 int lista_vertices_vazia(listaVerticesOrigem *l_vertices);
 void lista_vertices_inserir(listaVerticesOrigem *l_vertices, dadosVerticesOrigem *elemento);
 void lista_vertices_remover(listaVerticesOrigem *l_vertices, no_vertices *elemento);
-void lista_vertices_imprimir(listaVerticesOrigem *l_vertices);
+void lista_vertices_imprimir(no_vertices *noVertices);
 // ========================================================================================
 
 #endif

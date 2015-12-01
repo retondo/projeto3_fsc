@@ -38,6 +38,7 @@ void lista_arestas_inserir(listaArestas *l_arestas, dadosArestas *elemento)
     } else {
         l_arestas->fim->prox = novo;
         l_arestas->fim = novo;
+        novo->prox = NULL;
     }
     l_arestas->tam++;
 }
@@ -77,7 +78,7 @@ void lista_arestas_imprimir(listaArestas *l) {
     n = l->inicio;
 
     while(n != NULL) {
-        printf("\nA%i %i<->%i C%i", n->info->aresta, n->info->vertice1, n->info->vertice2, n->info->custo);
+        printf("\nA%i\t%i,%i\tC%i", n->info->aresta, n->info->vertice1, n->info->vertice2, n->info->custo);
         n = n->prox;
     }
 }
@@ -150,17 +151,10 @@ void lista_vertices_remover(listaVerticesOrigem *l_vertices, no_vertices *elemen
     free(elemento);
 }
 
-void lista_vertices_imprimir(listaVerticesOrigem *l) {
-    no_vertices *n;
-    n = l->inicio;
-
-    while(n != NULL) {
-        printf("\nV%i", n->info->vertice0);
-        lista_arestas_imprimir(n->l_arestas);
-        fflush(stdout);
-        n = n->prox;
-    }
-
+void lista_vertices_imprimir(no_vertices *no) {
+    printf("\nV%i ", no->info->vertice0);
+    lista_arestas_imprimir(no->l_arestas);
+    printf("\n");
 }
 
 
