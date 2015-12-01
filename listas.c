@@ -153,7 +153,7 @@ void lista_vertices_remover(listaVerticesOrigem *l_vertices, no_vertices *elemen
 }
 
 void lista_vertices_imprimir(no_vertices *no) {
-    printf("\nV%i ", no->info->vertice0);
+    printf("\nVertice de origem de trafego --> V%i ", no->info->vertice0);
     lista_arestas_imprimir(no->l_arestas);
     printf("\n");
 }
